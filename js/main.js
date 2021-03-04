@@ -8,6 +8,21 @@ var startB = document.getElementById("start")
 var stopB = document.getElementById("stopImg")
 var startIMG = document.getElementById("stopImg")
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+var firebaseConfig = {
+  apiKey: "AIzaSyDkh238kMVjpoeWXkFjtn9ZF8_L_a4LC64",
+  authDomain: "timertracker-29904.firebaseapp.com",
+  projectId: "timertracker-29904",
+  storageBucket: "timertracker-29904.appspot.com",
+  messagingSenderId: "243160475778",
+  appId: "1:243160475778:web:d9ce17fe93c59f06dd2c9b",
+  measurementId: "G-RJYRXJR50N"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
 stopB.disabled = true
 stopImg.src = 'img/disabledStopButton.png'
 
@@ -43,9 +58,10 @@ function stopTimer(disabledStop) {
     stopImg.src = 'img/disabledStopButton.png'
     startImg.src = 'img/startButton.png'
     startB.disabled = false
-    var timeTotal = String(sHours) + String(sMins) + String(sSeconds)
+    var timeTotal = String(sHours) + " " + String(sMins) + " " + String(sSeconds)
 
-    $.post('time.php', timeTotal)
+    firebase.database().ref("userTimes").push(timeTotal)
+    
 
   } else {
     alert("You have to start a timer if you wish to log time spent.")
