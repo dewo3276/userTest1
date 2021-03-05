@@ -59,9 +59,10 @@ function stopTimer(disabledStop) {
     startImg.src = 'img/startButton.png'
     startB.disabled = false
     var timeTotal = String(sHours) + " " + String(sMins) + " " + String(sSeconds)
+    endTime=String(endTime)
 
-    firebase.database().ref("userTimes").push(timeTotal)
-    
+    firebase.database().ref("userTimes").push({timeTotal, endTime})
+
 
   } else {
     alert("You have to start a timer if you wish to log time spent.")
